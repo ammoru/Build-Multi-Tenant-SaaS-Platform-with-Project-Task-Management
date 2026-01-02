@@ -1,0 +1,144 @@
+{
+  "testCredentials": {
+    "superAdmin": {
+      "email": "superadmin@system.com",
+      "password": "Admin@123",
+      "role": "super_admin",
+      "tenantId": null,
+      "description": "System administrator with access to all tenants"
+    },
+    "tenants": [
+      {
+        "name": "Demo Company",
+        "subdomain": "demo",
+        "status": "active",
+        "subscriptionPlan": "pro",
+        "maxUsers": 25,
+        "maxProjects": 15,
+        "description": "Sample tenant for testing",
+        "admin": {
+          "email": "admin@demo.com",
+          "password": "Demo@123",
+          "fullName": "Demo Admin",
+          "role": "tenant_admin",
+          "description": "Tenant administrator with full control"
+        },
+        "users": [
+          {
+            "email": "user1@demo.com",
+            "password": "User@123",
+            "fullName": "John Developer",
+            "role": "user",
+            "description": "Regular team member"
+          },
+          {
+            "email": "user2@demo.com",
+            "password": "User@123",
+            "fullName": "Jane Designer",
+            "role": "user",
+            "description": "Regular team member"
+          }
+        ],
+        "projects": [
+          {
+            "name": "Website Redesign",
+            "description": "Complete redesign of company website",
+            "status": "active",
+            "tasks": [
+              {
+                "title": "Design homepage mockup",
+                "description": "Create high-fidelity design for homepage",
+                "priority": "high",
+                "status": "in_progress",
+                "dueDate": "2024-07-15"
+              },
+              {
+                "title": "Develop responsive layout",
+                "description": "Implement responsive design for mobile devices",
+                "priority": "high",
+                "status": "todo",
+                "dueDate": "2024-07-20"
+              },
+              {
+                "title": "Setup backend API integration",
+                "description": "Connect frontend to backend APIs",
+                "priority": "medium",
+                "status": "todo",
+                "dueDate": "2024-07-25"
+              }
+            ]
+          },
+          {
+            "name": "Mobile App Development",
+            "description": "Native mobile application for iOS and Android",
+            "status": "active",
+            "tasks": [
+              {
+                "title": "Setup project structure",
+                "description": "Initialize mobile app project with required dependencies",
+                "priority": "high",
+                "status": "completed",
+                "dueDate": "2024-07-01"
+              },
+              {
+                "title": "Implement authentication screen",
+                "description": "Create login and registration screens",
+                "priority": "high",
+                "status": "in_progress",
+                "dueDate": "2024-07-18"
+              },
+              {
+                "title": "Create dashboard UI",
+                "description": "Design and implement main dashboard screen",
+                "priority": "medium",
+                "status": "todo",
+                "dueDate": "2024-08-01"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Test Tenant Alpha",
+        "subdomain": "testalpha",
+        "status": "active",
+        "subscriptionPlan": "free",
+        "maxUsers": 5,
+        "maxProjects": 3,
+        "description": "Test tenant with free plan",
+        "admin": {
+          "email": "admin@testalpha.com",
+          "password": "TestAlpha@123",
+          "fullName": "Alpha Admin",
+          "role": "tenant_admin",
+          "description": "Admin for test tenant alpha"
+        },
+        "users": [
+          {
+            "email": "dev@testalpha.com",
+            "password": "User@123",
+            "fullName": "Alpha Developer",
+            "role": "user",
+            "description": "Developer in test tenant"
+          }
+        ],
+        "projects": [
+          {
+            "name": "Quick Test Project",
+            "description": "Simple project for testing",
+            "status": "active",
+            "tasks": [
+              {
+                "title": "Sample task 1",
+                "description": "This is a sample task",
+                "priority": "medium",
+                "status": "todo",
+                "dueDate": "2024-07-30"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
