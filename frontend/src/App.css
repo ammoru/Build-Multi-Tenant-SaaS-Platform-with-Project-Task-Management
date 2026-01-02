@@ -1,0 +1,13 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Import modal styles */
+/* @import './components/Modal.css'; */
