@@ -44,13 +44,23 @@ const checkAuth = async () => {
 
   const login = async (email, password, tenantSubdomain) => {
     try {
-      const response = await authAPI.login({ email, password, tenantSubdomain });
+      const response = await authAPI.login({ 
+        email, 
+        password, 
+        tenantSubdomain: tenantSubdomain || undefined 
+      });
       if (response.data.success) {
         const { token, user } = response.data.data;
+        
+        // For super admin users, ensure tenantId is handled (can be null)
+        if (user.role === 'super_admin' && !user.tenantId) {
+          user.tenantId = null; // Explicitly set to null for super admin
+        }
+        
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         setUser(user);
-        console.log(user);
+        console.log('User logged in:', user);
         setIsAuthenticated(true);
         return { success: true };
       }

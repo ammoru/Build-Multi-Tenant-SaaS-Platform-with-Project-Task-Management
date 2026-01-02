@@ -1,7 +1,22 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Auth.css';
+import {
+  Box,
+  Container,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Link,
+  Checkbox,
+  FormControlLabel,
+  Alert,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,10 +28,13 @@ const Register = () => {
     adminFullName: '',
     adminPassword: '',
     confirmPassword: '',
+    acceptTerms: false,
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -45,6 +63,11 @@ const Register = () => {
 
     if (formData.adminPassword !== formData.confirmPassword) {
       setError('Passwords do not match');
+      return false;
+    }
+
+    if (!formData.acceptTerms) {
+      setError('You must accept the Terms & Conditions');
       return false;
     }
 
@@ -81,114 +104,262 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card register-card">
-        <div className="auth-header">
-          <h1>Register Your Organization</h1>
-          <p>Create a new tenant account</p>
-        </div>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      }}
+    >
+      {/* Left Side - Branding */}
+      <Box
+        sx={{
+          flex: 1,
+          display: { xs: 'none', md: 'flex' },
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: 'white',
+          p: 6,
+        }}
+      >
+        <Typography variant="h2" fontWeight={700} gutterBottom>
+          Welcome
+        </Typography>
+        <Typography variant="h5" sx={{ mb: 4, textAlign: 'center', maxWidth: 500 }}>
+          Create your organization account and start managing your projects efficiently
+        </Typography>
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="body1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+            ✓ Multi-tenant architecture
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+            ✓ Secure user management
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+            ✓ Project & task tracking
+          </Typography>
+          <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            ✓ Role-based access control
+          </Typography>
+        </Box>
+      </Box>
 
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
+      {/* Right Side - Form */}
+      <Box
+        sx={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          p: 3,
+        }}
+      >
+        <Paper
+          elevation={24}
+          sx={{
+            p: 4,
+            borderRadius: 3,
+            width: '100%',
+            maxWidth: 550,
+            maxHeight: '95vh',
+            overflow: 'auto',
+          }}
+        >
+          <Box sx={{ mb: 3 }}>
+            <Typography variant="h5" component="h1" fontWeight={600} gutterBottom>
+              Create Your Account
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Fill in the details below to get started
+            </Typography>
+          </Box>
 
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-group">
-            <label htmlFor="tenantName">Organization Name</label>
-            <input
-              type="text"
-              id="tenantName"
-              name="tenantName"
-              value={formData.tenantName}
-              onChange={handleChange}
-              placeholder="Acme Corporation"
-              required
-            />
-          </div>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+          
+          {success && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              {success}
+            </Alert>
+          )}
 
-          <div className="form-group">
-            <label htmlFor="subdomain">Subdomain</label>
-            <input
-              type="text"
-              id="subdomain"
-              name="subdomain"
-              value={formData.subdomain}
-              onChange={handleChange}
-              placeholder="acme"
-              required
-            />
-            <small className="form-hint">
-              Your subdomain: {formData.subdomain || 'subdomain'}.yourapp.com
-            </small>
-          </div>
+          <Box component="form" onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Organization Name"
+                  name="tenantName"
+                  value={formData.tenantName}
+                  onChange={handleChange}
+                  placeholder="Enter organization name"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
 
-          <div className="form-group">
-            <label htmlFor="adminFullName">Admin Full Name</label>
-            <input
-              type="text"
-              id="adminFullName"
-              name="adminFullName"
-              value={formData.adminFullName}
-              onChange={handleChange}
-              placeholder="John Doe"
-              required
-            />
-          </div>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Subdomain"
+                  name="subdomain"
+                  value={formData.subdomain}
+                  onChange={handleChange}
+                  placeholder="company"
+                  variant="outlined"
+                  size="small"
+                  helperText={formData.subdomain ? `${formData.subdomain}.yourapp.com` : ' '}
+                />
+              </Grid>
 
-          <div className="form-group">
-            <label htmlFor="adminEmail">Admin Email</label>
-            <input
-              type="email"
-              id="adminEmail"
-              name="adminEmail"
-              value={formData.adminEmail}
-              onChange={handleChange}
-              placeholder="admin@acme.com"
-              required
-            />
-          </div>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Admin Full Name"
+                  name="adminFullName"
+                  value={formData.adminFullName}
+                  onChange={handleChange}
+                  placeholder="Enter full name"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
 
-          <div className="form-group">
-            <label htmlFor="adminPassword">Password</label>
-            <input
-              type="password"
-              id="adminPassword"
-              name="adminPassword"
-              value={formData.adminPassword}
-              onChange={handleChange}
-              placeholder="Minimum 8 characters"
-              required
-            />
-          </div>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  type="email"
+                  label="Admin Email"
+                  name="adminEmail"
+                  value={formData.adminEmail}
+                  onChange={handleChange}
+                  placeholder="admin@company.com"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
 
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Re-enter password"
-              required
-            />
-          </div>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Password"
+                  name="adminPassword"
+                  type={showPassword ? 'text' : 'password'}
+                  value={formData.adminPassword}
+                  onChange={handleChange}
+                  placeholder="Min 8 characters"
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                          size="small"
+                        >
+                          {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
 
-          <button
-            type="submit"
-            className="btn btn-primary btn-block"
-            disabled={loading}
-          >
-            {loading ? 'Creating Account...' : 'Register'}
-          </button>
-        </form>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Re-enter password"
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          edge="end"
+                          size="small"
+                        >
+                          {showConfirmPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
 
-        <div className="auth-footer">
-          <p>
-            Already have an account? <Link to="/login">Login here</Link>
-          </p>
-        </div>
-      </div>
-    </div>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData.acceptTerms}
+                      onChange={(e) => setFormData({ ...formData, acceptTerms: e.target.checked })}
+                      required
+                      size="small"
+                    />
+                  }
+                  label={
+                    <Typography variant="body2">
+                      I agree to the{' '}
+                      <Link href="/terms" target="_blank" underline="hover">
+                        Terms & Conditions
+                      </Link>{' '}
+                      and{' '}
+                      <Link href="/privacy" target="_blank" underline="hover">
+                        Privacy Policy
+                      </Link>
+                    </Typography>
+                  }
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  disabled={loading}
+                  sx={{
+                    py: 1.5,
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #5568d3 0%, #653a8a 100%)',
+                    },
+                  }}
+                >
+                  {loading ? 'Creating Account...' : 'Create Account'}
+                </Button>
+              </Grid>
+            </Grid>
+
+            <Box sx={{ mt: 2, textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">
+                Already have an account?{' '}
+                <Link component={RouterLink} to="/login" underline="hover" fontWeight={600}>
+                  Sign in here
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+    </Box>
   );
 };
 
