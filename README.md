@@ -42,7 +42,7 @@ A production-ready, multi-tenant SaaS application that enables multiple organiza
 
 ### Backend
 - **Framework**: Express.js 4.x
-- **Language**: Node.js 18+
+- **Language**: Node.js 20+
 - **Authentication**: JWT (JSON Web Tokens)
 - **Password Hashing**: bcrypt 5.x
 - **Database ORM**: pg (node-postgres) 8.x
@@ -153,7 +153,7 @@ A production-ready, multi-tenant SaaS application that enables multiple organiza
 ## Installation & Setup
 
 ### Prerequisites
-- **Node.js**: 18.0 or higher
+- **Node.js**: 20.0 or higher
 - **npm**: 9.0 or higher
 - **PostgreSQL**: 15 or higher (for local development)
 - **Docker**: 20.10+ (optional, for containerized deployment)
@@ -163,8 +163,8 @@ A production-ready, multi-tenant SaaS application that enables multiple organiza
 
 #### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/yourusername/saas-platform.git
-cd saas-platform
+git clone https://github.com/ammoru/Build-Multi-Tenant-SaaS-Platform-with-Project-Task-Management.git
+cd Build-Multi-Tenant-SaaS-Platform-with-Project-Task-Management.git
 ```
 
 #### Step 2: Set Up Environment Variables
@@ -253,7 +253,7 @@ npm run seed
 
 ```bash
 cd backend
-npm run dev
+nodemon src/server.js
 # Server will start on http://localhost:5000
 ```
 
@@ -379,9 +379,9 @@ Content-Type: application/json
 
 Request:
 {
-  "email": "admin@acme.com",
-  "password": "SecurePass@123",
-  "tenantSubdomain": "acme"
+  "email": "raju@gmail.com",
+  "password": "Raju1@123",
+  "tenantSubdomain": "raju"
 }
 
 Response (200):
@@ -390,9 +390,9 @@ Response (200):
   "data": {
     "user": {
       "id": "uuid",
-      "email": "admin@acme.com",
-      "fullName": "John Admin",
-      "role": "tenant_admin",
+      "email": "raju@gmail.com",
+      "fullName": "Raju",
+      "role": "tenant_admin,
       "tenantId": "uuid"
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
