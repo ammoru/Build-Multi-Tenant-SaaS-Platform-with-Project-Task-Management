@@ -71,6 +71,19 @@ A production-ready, multi-tenant SaaS application that enables multiple organiza
   - Frontend: 3000
 
 ---
+## Video Tutorial
+
+### Getting Started with the SaaS Platform
+[![Watch on YouTube](https://img.shields.io/badge/Watch-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/m86Fhk6FsRk?si=iTpC3FMg-x1s4RBd)
+
+This comprehensive video tutorial walks you through:
+- Project setup and installation
+- Database configuration
+- Running the application locally
+- Deploying with Docker
+- Using the dashboard and managing projects
+
+---
 
 ## System Architecture Overview
 
@@ -758,22 +771,23 @@ Tenant: None (has access to all tenants)
 
 ### Demo Tenant Admin
 ```
-Email: admin@demo.com
-Password: Demo@123
-Tenant: demo
+Email: raju@gmail.com
+Password: Raju@123
 Role: tenant_admin
-Subdomain: demo
+Subdomain: raju
 ```
 
 ### Demo Tenant Users
 ```
 User 1:
-Email: user1@demo.com
-Password: User@123
+Email: care@demo.com
+Password: Care@123
+Subdomine :speed
 
 User 2:
-Email: user2@demo.com
-Password: User@123
+Email: raju101@gmail.com
+Password: Raju@123
+SubDomine :raju101
 ```
 
 ---
@@ -929,20 +943,7 @@ Solution:
 
 ---
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## Support & Contact
-
-For issues, questions, or contributions, please:
-1. Check existing GitHub Issues
-2. Create a new Issue with detailed description
-3. Contact: support@saasplatform.com
-
----
 
 ## Deployment Notes
 
